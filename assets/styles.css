@@ -75,14 +75,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
   color: var(--green-deep);
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
   margin-bottom: 1em;
-}
-.eyebrow::before {
-  content: '';
-  width: 22px;
-  height: 1px;
-  background: var(--green);
 }
 
 .wrap {
