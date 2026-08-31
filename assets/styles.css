@@ -24,8 +24,8 @@
   --line: rgba(23, 35, 27, 0.14);
   --line-soft: rgba(23, 35, 27, 0.08);
 
-  --font-display: 'Inter', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Halenoir', Georgia, serif;
+  --font-body: 'Halenoir', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --max-width: 1180px;
