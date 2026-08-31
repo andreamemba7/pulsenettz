@@ -367,6 +367,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 .footer-col-title {
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink);
@@ -382,7 +383,7 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 @media (max-width: 900px) { .footer-col { margin-top: 0; } }
 
 .footer-sep { height: 1px; width: 100%; background: var(--line); border: 0; margin: 0; }
-.footer-copy { text-align: center; font-size: 0.82rem; color: var(--ink-soft); padding-top: 1.75rem; margin: 0; }
+.footer-copy { text-align: center; font-size: 0.82rem; color: var(--ink-soft); padding-top: 1.75rem; margin: 0 auto; max-width: none; }
 
 /* ---- Page header (interior pages) ---- */
 .page-hero { padding: clamp(2.6rem, 6vw, 4.5rem) 0 clamp(1.8rem, 4vw, 2.6rem); }
