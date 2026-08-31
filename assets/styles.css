@@ -4,9 +4,7 @@
    recurring structural device (dividers, hover states, the process trail).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
-
-/* Halenoir — the display/body typeface for the site.
+/* Halenoir — the single typeface for the whole site (display, body and labels).
    Not a Google font: drop the licensed webfont files into assets/fonts/
    (see assets/fonts/README.md). Until they're present, the fallback stack
    below is used. */
@@ -59,7 +57,7 @@
 
   --font-display: 'Halenoir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-body: 'Halenoir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'Halenoir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 
   --max-width: 1180px;
   --radius: 4px;
@@ -358,7 +356,8 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 .footer-brand-col { display: flex; flex-direction: column; gap: 1.25rem; max-width: 34ch; }
 @media (max-width: 900px) { .footer-brand-col { grid-column: 1 / -1; max-width: none; } }
 .footer-brand-col img { height: 36px; width: auto; }
-.footer-blurb { margin: 0; font-size: 0.95rem; color: var(--ink-soft); max-width: none; }
+/* Capped at four lines; width tuned so the copy wraps to exactly four. */
+.footer-blurb { margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); max-width: 44ch; }
 
 .footer-social { display: flex; align-items: center; gap: 1rem; }
 .footer-social a { color: var(--ink-soft); display: inline-flex; transition: color 0.15s ease; }
@@ -378,6 +377,9 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 .footer-col a { font-size: 0.95rem; color: var(--ink-soft); transition: color 0.15s ease; }
 .footer-col a:hover { color: var(--green-deep); }
 .footer-col p { font-size: 0.95rem; margin: 0; color: var(--ink-soft); max-width: none; }
+/* Outdent the logo so the nav/contact column heads line up with the blurb's first line. */
+.footer-col { margin-top: calc(36px + 1.25rem); }
+@media (max-width: 900px) { .footer-col { margin-top: 0; } }
 
 .footer-sep { height: 1px; width: 100%; background: var(--line); border: 0; margin: 0; }
 .footer-copy { text-align: center; font-size: 0.82rem; color: var(--ink-soft); padding-top: 1.75rem; margin: 0; }
