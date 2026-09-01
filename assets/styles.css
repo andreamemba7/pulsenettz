@@ -211,18 +211,26 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
 }
 /* Two-column content overlay: headline + focus areas on the left,
    mission statement + email capture on the right. */
+/* Single column, centred both axes within the hero. */
 .hero-inner {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(2rem, 6vw, 5.5rem);
-  align-items: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.35rem;
+  min-height: 62vh;
+  max-width: 760px;
 }
-.hero-col { min-width: 0; }
+.hero-col { display: contents; }
 
 .hero h1 {
   color: #fff;
-  max-width: 16ch;
-  margin: 0 0 1.6rem;
+  /* headline is broken into 3 lines with <br>; keep it slightly smaller so
+     each forced line fits without wrapping further */
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  line-height: 1.15;
+  margin: 0;
 }
 .hero h1 em {
   font-family: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
@@ -234,7 +242,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
 .hero-subtitle {
   color: rgba(255,255,255,0.72);
   font-size: 0.98rem;
-  margin: 0 0 1rem;
+  margin: 0;
 }
 
 .hero-tags {
@@ -243,6 +251,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.55rem 1.6rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
@@ -253,8 +262,8 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
   color: rgba(255,255,255,0.9);
   font-size: 1.05rem;
   line-height: 1.6;
-  margin: 0 0 1.9rem;
-  max-width: 46ch;
+  margin: 0;
+  max-width: 52ch;
 }
 
 .hero-subscribe {
@@ -298,8 +307,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
 .hero .pulse-divider.accent { color: rgba(255,255,255,0.5); position: relative; z-index: 1; }
 
 @media (max-width: 860px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 2.25rem; align-items: start; }
-  .hero h1 { max-width: none; }
+  .hero-inner { min-height: 50vh; gap: 1.15rem; }
   .hero-body { max-width: none; }
   .hero-subscribe { max-width: none; }
 }
