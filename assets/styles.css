@@ -173,11 +173,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
    override .btn — force it back to a proper button (smaller text, balanced
    padding, no underline bar). */
 .nav-links a.btn {
-  padding: 0.6em 1.15em;
+  padding: 0.7em 1.4em;
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1;
-  border: 1px solid transparent;
+  border: 0;
+  border-radius: 999px;
 }
 .nav-links a.btn::after { content: none; }
 
@@ -333,9 +334,29 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
 }
 
 @media (max-width: 860px) {
-  .hero-inner { min-height: 50vh; gap: 1.15rem; }
+  /* Mobile: the first viewport shows only the headline + "Our work spans…" +
+     tags. The mission paragraph and email form sit below the fold. */
+  .hero { padding-top: 0; padding-bottom: clamp(2.5rem, 10vw, 4rem); }
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 0;
+  }
+  .hero-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .hero-col--left {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: center;
+    gap: 1.15rem;
+    padding: 4.5rem 0;
+  }
+  .hero-col--right {
+    gap: 1.25rem;
+    padding-top: clamp(2rem, 8vw, 3.5rem);
+  }
   .hero-body { max-width: none; }
-  .hero-subscribe { max-width: none; }
+  .hero-subscribe { width: 100%; max-width: 420px; }
 }
 
 @media (max-width: 480px) {
