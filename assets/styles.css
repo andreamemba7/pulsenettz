@@ -336,7 +336,18 @@ p { margin: 0 0 1em; color: var(--ink-soft); max-width: 62ch; }
   border-radius: 999px;
   box-shadow: 0 10px 30px rgba(10,16,12,0.28);
 }
-
+.hero-subscribe__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  padding: 0.7rem 0;
+}
+.hero-subscribe__input::placeholder { color: var(--ink-soft); }
+.hero-subscribe__input:focus { outline: none; }
 .hero-subscribe__btn {
   flex: 0 0 auto;
   border: 0;
