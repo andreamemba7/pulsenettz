@@ -1,37 +1,27 @@
-/* ==========================================================================
-   Pulse Network — Design System
-   Signature motif: the heartbeat/pulse line from the wordmark, used as a
-   recurring structural device (dividers, hover states, the process trail).
-   ========================================================================== */
-
-/* Halenoir — the single typeface for the whole site (display, body and labels).
-   Not a Google font: drop the licensed webfont files into assets/fonts/
-   (see assets/fonts/README.md). Until they're present, the fallback stack
-   below is used. */
 @font-face {
   font-family: 'Halenoir';
-  src: url('fonts/Halenoir-Regular.woff2') format('woff2');
+  src: url('fonts/Halenoir-Regular.otf') format('otf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Halenoir';
-  src: url('fonts/Halenoir-Medium.woff2') format('woff2');
+  src: url('fonts/Halenoir-Medium.otf') format('otf');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Halenoir';
-  src: url('fonts/Halenoir-SemiBold.woff2') format('woff2');
+  src: url('fonts/Halenoir-SemiBold.otf') format('otf');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Halenoir';
-  src: url('fonts/Halenoir-Bold.woff2') format('woff2');
+  src: url('fonts/Halenoir-Bold.otf') format('otf');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
