@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Connect With Us — Pulse Network</title>
 <meta name="description" content="Have an idea? Want to collaborate? Get in touch with Pulse Network.">
-<link rel="stylesheet" href="assets/styles.css?v=17">
+<link rel="stylesheet" href="assets/styles.css?v=18">
 </head>
 <body>
 
@@ -66,12 +66,16 @@
                 <input type="text" id="name" name="name" required>
               </div>
               <div class="field">
-                <label for="contact">Email / Phone</label>
-                <input type="text" id="contact" name="email_or_phone" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
               </div>
-              <div class="field full">
-                <label for="org">Organization</label>
-                <input type="text" id="org" name="organization">
+              <div class="field">
+                <label for="phone">Phone <span class="opt">(optional)</span></label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="org">Organization <span class="opt">(optional)</span></label>
+                <input type="text" id="org" name="organization" autocomplete="organization">
               </div>
               <div class="field full">
                 <label>I am interested in</label>
@@ -89,6 +93,11 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
               </div>
+            </div>
+            <!-- Honeypot: hidden off-screen. Bots fill it, humans never see it. -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
             <button type="submit" class="btn btn-primary">Send Message</button>
             <p class="form-status" role="status"></p>

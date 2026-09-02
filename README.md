@@ -1,80 +1,171 @@
-# Pulse Network website — handoff notes
+# Pulse Network — pulsenettz.com
 
-## What's here
-4 static pages (Home, About Us, Opportunities, Connect With Us), one shared
-stylesheet, one shared script. No build step — open `index.html` directly,
-or deploy the whole folder as-is (same pattern as your portfolio site: push
-to a repo, turn on GitHub Pages).
+Static marketing site for Pulse Network, a Tanzanian non-profit working on
+environmental sustainability, climate resilience and social equity.
 
-## 1. Contact form — finish the Formspree wiring
-The form UI is built and validates client-side, but it won't actually send
-anywhere until you connect a Formspree endpoint (you chose Formspree over
-a plain mailto link):
+Five pages, one stylesheet, one script, and a single serverless function that
+handles the contact form. No build step, no framework, no dependencies.
 
-1. Go to formspree.io → sign up free → **New Form**.
-2. Copy the endpoint it gives you, e.g. `https://formspree.io/f/abcdwxyz`.
-3. Open `assets/main.js`, find this line near the top of the form section:
-   ```js
-   const FORM_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID';
-   ```
-   Replace the placeholder with your real endpoint. That's it — no other
-   code changes needed.
+---
 
-Until you do this, submitting the form shows an honest inline message
-("Form not connected yet") instead of silently failing.
+## Stack
 
-## 2. Logo
-`assets/pulsenet_logo.png` is extracted directly from your organization
-profile PDF with the background removed — it's the real mark, just raster
-instead of vector. It'll look sharp at the sizes used in this build (nav,
-~34px tall). If you get the original vector/SVG file from whoever designed
-it, drop it in as `assets/pulsenet_logo.png` (or update the `src` in the
-four HTML files) for a version that scales cleanly to any size.
+| | |
+|---|---|
+| Pages | Plain HTML — `index`, `about`, `opportunities`, `connect`, `team` |
+| Styles | One file, `assets/styles.css`, cache-busted via `?v=N` |
+| Script | One file, `assets/main.js` — nav toggle, scroll reveal, contact form |
+| Backend | `api/contact.js` — Vercel serverless function, CommonJS |
+| Email | [Resend](https://resend.com) |
+| Hosting | Vercel |
 
-## 3. Team photos
-The team section currently uses initials on a green tile as placeholders
-(Agness Taji Liundi, Kelvin Majaliwa, Athumani Ramadhani, Brian Sisti, Fatma
-Suleyman, Elisha Paul). Once you have headshots, replace each `.avatar` div
-in `about.html` with an `<img>` tag — happy to wire that in once you send
-the photos.
+---
 
-## 4. Domain / contact info used
-Standardized on the values you confirmed: `www.pulsenettz.com` and
-`pulsenettz@gmail.com`. The source PDF had two other variants
-(`www.pulsnet.or.tz` / `info@pulsenet.or.tz` / `pulseneNz@gmail.com`) —
-worth double-checking with the rest of the org that those aren't the
-"real" ones before this goes live, since a .or.tz domain is more typical
-for a registered Tanzanian NGO than a .com.
+## Structure
 
-## 4b. Photos used on the Home page ("In the field" section)
-Four images from the batch you sent went in — the forest/tree walkthrough and
-the two outdoor Maasai community-circle discussions, plus the tree-planting
-shot. They're captioned generically ("Community engagement and environmental
-action across Tanzania") rather than tied to a specific named Pulse Network
-program, since I couldn't confirm which initiative they're actually from.
+```
+├── index.html            Home
+├── about.html            About Us
+├── opportunities.html    Opportunities
+├── connect.html          Connect With Us (contact form)
+├── team.html             Team
+├── api/
+│   └── contact.js        POST endpoint — validates, then calls Resend
+├── assets/
+│   ├── styles.css
+│   ├── main.js
+│   ├── pulsenet_logo.png
+│   ├── fonts/
+│   └── photos/
+├── .env.example          Env var names (no secrets)
+└── .gitignore
+```
 
-**Not used, on purpose:** the two YouLead Summit photos (one shows a Naki
-Group product table), the MIL4TEENZ workshop photos, the "Mwanaume ni Mtu"
-branded-shirt photo, the two mangrove/coastal group photos, and the indoor
-event photos of the two women presenting. These either carry another
-organization's visible branding or I had no way to confirm they're Pulse
-Network's own material — safer to leave them out than misattribute someone
-else's event. If any of these *are* confirmed Pulse Network work, say so and
-I'll add them back in with an accurate caption.
+---
 
-**Team photos are still placeholders.** None of the uploaded photos are
-labeled with names, so I can't match any face to Agness, Kelvin, Athumani,
-Brian, Fatma, or Elisha without guessing — send a name-to-file mapping and
-I'll drop them into `about.html`.
+## Running it locally
 
-## 5. Social links
-Instagram / LinkedIn / Facebook / X / YouTube are placeholder `#` links on
-the Connect page — send the actual handles/URLs and I'll wire them in.
+Most of the site opens straight from the filesystem — double-click
+`index.html`. The contact form is the exception: `file://` has no `/api`
+route, so submissions will fail.
 
-## 6. A note on previewing this
-If you preview these files with any tool built on an old WebKit engine
-(older PDF-conversion tools, for instance), the grid-based sections may
-render blank — those engines predate CSS Grid (2017) and flexbox `gap`
-(2020). Any real browser from the last several years — Chrome, Safari,
-Firefox, Edge, and every phone browser — renders this correctly. Open it
-in an actual browser to see the real thing.
+To run the form too:
+
+```bash
+npm i -g vercel
+vercel dev
+```
+
+Create `.env.local` from `.env.example` first and fill in the real values.
+`.env.local` is gitignored — keep it that way.
+
+---
+
+## Deploying
+
+Vercel, connected to this GitHub repo. Push to `main` and it ships.
+
+**Project settings:** framework preset *Other*, no build command, no output
+directory. Vercel serves the repo root as static files and auto-detects
+`api/` as serverless functions.
+
+GitHub Pages is not an option any more. It can't run `api/contact.js`, so the
+contact form would 404 with no visible error.
+
+---
+
+## Contact form
+
+The form on `connect.html` posts JSON to `/api/contact`. That function
+validates the input and calls Resend, which delivers to `TO_EMAIL`.
+
+**The Resend API key is never in this repo.** It lives only in Vercel's
+environment variables. If you ever find yourself pasting `re_...` into a file
+here, stop — anyone can read it from the deployed site.
+
+### Environment variables
+
+Set all three in Vercel → Settings → Environment Variables, for Production,
+Preview and Development.
+
+| Variable | Value | Notes |
+|---|---|---|
+| `RESEND_API_KEY` | `re_...` | From resend.com/api-keys. Shown once only. |
+| `TO_EMAIL` | `pulsenettz@gmail.com` | Where enquiries land. |
+| `FROM_EMAIL` | `website@pulsenettz.com` | Domain must be verified in Resend. |
+
+Environment variables are read at deploy time — after changing one, redeploy.
+
+### Domain verification
+
+Before anything sends from `@pulsenettz.com`, add the domain in
+resend.com/domains and copy the DKIM and SPF records it returns into the DNS
+zone for `pulsenettz.com`. This requires access to the domain's DNS. Until
+Resend shows *Verified*, every send fails.
+
+To test before DNS is sorted: if the Resend account was created with
+`pulsenettz@gmail.com`, set `FROM_EMAIL=onboarding@resend.dev` and it sends
+immediately with no DNS. That shared test address only delivers to the
+account owner's inbox — which is where this form goes anyway. Switch to
+`website@pulsenettz.com` once verified; shipping on `resend.dev` hurts
+deliverability.
+
+### What the endpoint does
+
+- Requires name, email and message; validates email format
+- Caps the message at 5000 characters
+- Strips CR/LF from every field before it reaches a mail header
+- HTML-escapes all input
+- Ignores any "interest" value that isn't one of the seven checkboxes
+- Hidden honeypot field (`website`) — bot submissions get a silent 200 and go nowhere
+- Sets `reply_to` to the sender, so Reply in Gmail answers the visitor directly
+
+Failures are logged to Vercel's function logs with the real reason. Visitors
+only see plain language and the fallback email address.
+
+---
+
+## Editing content
+
+Text is edited directly in the HTML. Repeated blocks (header nav, footer) are
+duplicated across all five pages — change one, change all five. Grep for the
+string you're replacing rather than editing page by page.
+
+After changing `assets/styles.css`, bump the `?v=` number in every `<link>`
+tag or returning visitors keep the cached stylesheet:
+
+```bash
+sed -i '' 's/styles.css?v=18/styles.css?v=19/' *.html   # macOS
+sed -i    's/styles.css?v=18/styles.css?v=19/' *.html   # Linux
+```
+
+---
+
+## Open items
+
+Things that are deliberately unfinished, with what's needed to close them.
+
+**Team photos.** `about.html` uses initials on a green tile as placeholders
+for Agness Taji Liundi, Kelvin Majaliwa, Athumani Ramadhani, Brian Sisti,
+Fatma Suleyman and Elisha Paul. Needs a name-to-file mapping — the uploaded
+photos aren't labelled, and guessing which face belongs to which name isn't a
+risk worth taking on a public site.
+
+**Social links.** Instagram, LinkedIn, Facebook and X are `#` placeholders on
+`connect.html` and in the footer. Needs the real handles.
+
+**Which domain is real.** The site standardises on `www.pulsenettz.com` and
+`pulsenettz@gmail.com`. The source organisation profile listed
+`www.pulsnet.or.tz`, `info@pulsenet.or.tz` and `pulseneNz@gmail.com`. A
+`.or.tz` domain is more typical for a registered Tanzanian NGO. Worth
+confirming with the org before this is promoted anywhere — and it directly
+affects Resend, since `FROM_EMAIL` has to sit on the verified domain.
+
+**Logo is raster.** `assets/pulsenet_logo.png` was extracted from the
+organisation profile PDF with the background removed. Sharp at nav size
+(~34px), but it won't scale. Drop in the original vector if it ever surfaces.
+
+**No rate limiting.** The honeypot stops naive bots. It won't stop someone
+deliberately hammering `/api/contact` and burning Resend quota. If that
+happens, enable Vercel's WAF rate-limiting on that path — dashboard toggle,
+no code change.
