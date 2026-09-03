@@ -457,10 +457,59 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 @media (max-width: 720px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
 .team-card .avatar { width: 100%; aspect-ratio: 1; border-radius: var(--radius); background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 2rem; color: var(--green-deep); margin-bottom: 0.9rem; }
 /* Cut-out portrait on the site green (image has a transparent background) */
-.team-card .avatar--photo { background: var(--green); padding: 0; overflow: hidden; }
+.team-card .avatar--photo { background: var(--green); padding: 0; overflow: hidden; filter: grayscale(100%);}
 .team-card .avatar--photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .team-card h3 { font-size: 1rem; margin-bottom: 0.15rem; }
 .team-card .role { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+
+/* ---- Partner marquee ---- */
+.partner-marquee {
+  overflow: hidden;
+  padding: 0.75rem 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.partner-track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  animation: partner-scroll 55s linear infinite;
+  will-change: transform;
+}
+.partner-marquee:hover .partner-track,
+.partner-marquee:focus-within .partner-track { animation-play-state: paused; }
+
+.partner-card {
+  flex: 0 0 auto;
+  width: auto;
+  height: clamp(58px, 9vw, 80px);
+  aspect-ratio: auto;
+  padding: 0 clamp(1rem, 2.5vw, 1.6rem);
+  margin-right: clamp(0.5rem, 1.6vw, 0.9rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.partner-card img {
+  height: 100%;
+  width: auto;
+  max-width: clamp(110px, 20vw, 170px);
+  object-fit: contain;
+  padding: 0.6rem 0;
+}
+
+@keyframes partner-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee { overflow-x: auto; }
+  .partner-track { animation: none; }
+}
 
 /* ---- Partners strip ---- */
 /* ---- Partners marquee: continuous infinite auto-scroll, pauses on hover/focus.
