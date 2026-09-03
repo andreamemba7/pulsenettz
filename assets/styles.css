@@ -521,9 +521,6 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
 }
 
 /* Logos: normalise by height so wide wordmarks and square marks read as
