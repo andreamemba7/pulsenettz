@@ -466,50 +466,33 @@ section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
 /* ---- Partners marquee: continuous infinite auto-scroll, pauses on hover/focus.
    Track holds two identical sets of cards; each card carries a right margin so
    one set is exactly half the track width and translateX(-50%) loops seamlessly. */
-.partner-marquee {
-  overflow: hidden;
-  padding: 0.75rem 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-}
-.partner-track {
-  display: flex;
-  width: max-content;
-  animation: partner-scroll 32s linear infinite;
-  will-change: transform;
-}
-.partner-marquee:hover .partner-track,
-.partner-marquee:focus-within .partner-track { animation-play-state: paused; }
-
 .partner-card {
   flex: 0 0 auto;
-  width: clamp(122px, 22vw, 176px);
-  aspect-ratio: 1 / 1;
-  margin-right: clamp(0.6rem, 2vw, 1rem);
+  height: clamp(60px, 9vw, 84px);
+  padding: 0 clamp(1rem, 2.5vw, 1.6rem);
+  margin-right: clamp(0.5rem, 1.6vw, 0.9rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 1rem;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-  line-height: 1.35;
-  color: var(--ink-soft);
 }
 
-@keyframes partner-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* Logos: normalise by height so wide wordmarks and square marks read as
+   the same optical weight. object-fit needs both dimensions set. */
+.partner-card img {
+  height: 100%;
+  width: auto;
+  max-width: clamp(110px, 20vw, 168px);
+  object-fit: contain;
+  padding: 0.7rem 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .partner-marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .partner-track { animation: none; }
-}
+/* Mute at rest so 11 sets of brand colours don't fight each other.
+   Delete both rules if you want them full colour. */
+.partner-card img { filter: grayscale(1); opacity: 0.7; transition: filter .25s ease, opacity .25s ease; }
+.partner-marquee:hover .partner-card img { filter: none; opacity: 1; }
 
 /* ---- Opportunity sections ---- */
 .opp-block { display: grid; grid-template-columns: 1fr 1.3fr; gap: 2.5rem; padding: 2.6rem 0; border-bottom: 1px solid var(--line); align-items: start; }
